@@ -1,31 +1,31 @@
 package com.example.pp_3_1_2_springbootcrud.model;
 
-
 import javax.persistence.*;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.PositiveOrZero;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = IDENTITY)
     private long id;
 
     @Column
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Поле должно содержать только буквы")
+    @NotEmpty(message = "Name не должно быть пустым")
+    @Size(min = 2, max = 30, message = "Name в этом эквиваленте")
     private String name;
 
     @Column
-    @Pattern(regexp = "^[a-zA-Zа-яА-Я]+$", message = "Поле должно содержать только буквы")
+    @NotEmpty(message = "Surname не должно быть пустым")
+    @Size(min = 2, max = 30, message = "Surname в этом эквиваленте")
     private String surname;
 
     @Column
-    @PositiveOrZero
-    @Min(value=10,message = "возраст не может быть меньше 10")
-    @Max(value=100,message = "возраст не может быть больше 100")
+    @Min(value = 0, message = "Age should be greater than 0")
     private int age;
 
     public User() {
